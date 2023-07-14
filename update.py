@@ -58,7 +58,7 @@ def fetch_gitolite_repos():
         if len(s) > 2:
             repo = s.split("\t")[1]
             target_folder = f"{GITOLITE_URL}/{repo}"
-            # print(f"{repo}, {repo_folder}")
+            # print(f"{repo}, {target_folder}")
             repos.append((f"{GITOLITE_USER}@{GITOLITE_URL}:{repo}", target_folder))
 
     return repos
@@ -85,7 +85,7 @@ def fetch_github_repos():
 
     for r in response:
         url = r["git_url"].replace("git://github.com/", "git@github.com:")
-        name = r["name"]
+        name = r["full_name"]
         repos.append((url, f"github/{name.lower()}"))
 
     return repos
