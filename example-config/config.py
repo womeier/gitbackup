@@ -5,6 +5,7 @@
 # needs read-access to: Administration, Contents, Metadata
 GITHUB_TOKEN = "github_pat_SECRET"
 GITHUB_USERNAME = "johndoe"
+GITHUB_PRIVKEY = "/home/johndoe/.ssh/id_rsa"
 
 
 # GITOLITE

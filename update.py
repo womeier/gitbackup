@@ -13,7 +13,7 @@ from tqdm import tqdm
 found_configuration = False
 
 try:
-    from config import GITHUB_TOKEN, GITHUB_USERNAME
+    from config import GITHUB_TOKEN, GITHUB_USERNAME, GITHUB_PRIVKEY
     github = True
     found_configuration = True
 except Exception:
@@ -31,11 +31,11 @@ except Exception:
 
 cwd = os.path.abspath(os.path.dirname(__file__))
 
-def set_ssh_key_backup():
-    ssh = f"ssh -i {os.path.join(cwd, GITOLITE_PRIVKEY)}"
+def set_ssh_privkey(privkey_path):
+    ssh = f"ssh -i {os.path.join(cwd, privkey_path)}"
     os.environ["GIT_SSH_COMMAND"] = ssh
 
-def unset_ssh_key_backup():
+def unset_ssh_privkey():
     os.environ["GIT_SSH_COMMAND"] = "ssh"
 
 
@@ -136,12 +136,12 @@ if __name__ == "__main__":
 
     if gitolite:
         print()
-        set_ssh_key_backup()
+        set_ssh_privkey(GITOLITE_PRIVKEY)
         repos = fetch_gitolite_repos()
         update_repos(repos)
-        unset_ssh_key_backup()
 
     if github:
         print()
+        set_ssh_privkey(GITHUB_PRIVKEY)
         repos = fetch_github_repos()
         update_repos(repos)
