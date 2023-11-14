@@ -13,7 +13,7 @@ from tqdm import tqdm
 found_configuration = False
 
 try:
-    from config import GITHUB_TOKEN, GITHUB_USERNAME, GITHUB_PRIVKEY
+    from config import GITHUB_TOKEN, GITHUB_USERNAME, GITHUB_PRIVKEY, GITHUB_BLACKLIST
     github = True
     found_configuration = True
 except Exception:
@@ -102,6 +102,9 @@ def update_repos(repos):
     print("Updating...")
 
     for repo_url, target_folder in tqdm(repos):
+        if any(map(lambda x: x in repo_url, GITHUB_BLACKLIST)):
+            continue
+
         if not os.path.exists(target_folder):
             print(f"Adding {repo_url}...")
             subprocess.run(["git", "clone", repo_url, target_folder])

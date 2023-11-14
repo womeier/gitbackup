@@ -6,6 +6,7 @@
 GITHUB_TOKEN = "github_pat_SECRET"
 GITHUB_USERNAME = "johndoe"
 GITHUB_PRIVKEY = "/home/johndoe/.ssh/id_rsa"
+GITHUB_BLACKLIST = ["repo_name_dont_backup", "user_name_dont_backup"]
 
 
 # GITOLITE
